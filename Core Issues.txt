@@ -1,0 +1,74 @@
+Core Issues & Solutions:
+
+1. Proxy Attendance (Friend marking for absent student)
+- Implement facial recognition/selfie verification at time of marking attendance
+- Require biometric authentication (fingerprint/Face ID)
+- Random PIN verification that needs to be entered within seconds of display
+- Multi-factor authentication combining location + another factor
+- QR code scanning that changes every few minutes (displayed in class)
+
+2. Location Accuracy Issues
+- Use a combination of GPS, Wi-Fi, and cellular triangulation
+- Set appropriate geofence radius (not too tight, not too loose)
+- Take multiple location samples over 30-60 seconds instead of a single ping
+- Require students to stay in location for a minimum duration (prevent drive-by marking)
+- Display real-time location accuracy to users and only allow marking when accuracy is within acceptable range
+
+3. Location Services Disabled
+- Prevent app functioning without location services enabled
+- Regular background checks for location status
+- Push notifications reminding users to enable location
+- Mark attendance as "suspicious" if location was enabled just before marking
+- Maintain logs of location service status changes
+
+4. No Phone/Dead Battery Scenarios
+- Provide web-based alternative (accessible from lab computers)
+- Manual override system for faculty with proper logging
+- Backup NFC/ID card system integration
+- Allow retroactive attendance marking with proper documentation
+- System to report device issues in advance
+
+Edge Cases to Consider:
+
+1. Technical Issues:
+- App crashes during attendance marking
+- Network connectivity issues
+- GPS spoofing attempts
+- Time zone complications for different campus locations
+- Server downtime during critical marking periods
+
+2. Physical Environment:
+- Indoor locations with poor GPS signal
+- Large lecture halls spanning multiple geofence areas
+- Multiple classes happening simultaneously in nearby locations
+- Students in buildings with multiple floors (3D location accuracy)
+- Campus areas with overlapping geofences
+
+3. Academic Scenarios:
+- Student arriving late/leaving early
+- Class location changes
+- Emergency evacuations during class
+- Field trips or off-campus classes
+- Make-up classes in different locations
+
+4. User Behavior:
+- Students trying to mark attendance from nearby buildings
+- Multiple login attempts from different devices
+- Rapid switching between accounts
+- Modified/rooted devices
+- VPN usage affecting location data
+
+Additional Security Measures:
+
+1. Pattern Detection:
+- Track and flag suspicious patterns (same device marking for multiple students)
+- Analyze historical location data for inconsistencies
+- Monitor device switching patterns
+- Track attendance marking times for suspicious clusters
+
+2. System Integrity:
+- Regular security audits
+- Encrypted location data
+- Tamper detection for modified apps
+- Rate limiting for attendance marking attempts
+- Server-side verification of all client data
