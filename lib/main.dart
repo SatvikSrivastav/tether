@@ -22,9 +22,12 @@ class TetherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tether',
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white, // Set default background color to white for consistency
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: const Color(0xFF2C2C2C), // Set primary color for consistency with login page elements
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: App(), // Ensure App widget supports full screen

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Import the flutter_svg package
 import 'forgot_password.dart'; // Import the ForgotPassword page
+import 'dashboard_page.dart'; // Import the DashboardPage
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,56 +18,73 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white, // Set background color to white
+      appBar: AppBar(
+        title: const Text('Login'), // Add a title to the AppBar
+        backgroundColor: Colors.transparent, // Make the AppBar transparent
+        elevation: 0, // Remove the shadow
+        centerTitle: true, // Center the title
+      ),
       body: Container(
-        height: MediaQuery.of(context).size.height, // Set height to full screen
+        // Removed fixed height to allow scrolling
         padding: const EdgeInsets.symmetric(horizontal: 41), // Adjust padding
-        child: Center( // Center the content vertically
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center, // Center elements vertically
-              children: [
-                ToggleButton(
-                  isAdmin: isAdmin,
-                  onToggle: (value) {
-                    setState(() {
-                      isAdmin = value; // Update the state on toggle
-                    });
-                  },
-                ),
-                const SizedBox(height: 20), // Adjusted spacing
-                SvgPicture.asset(
-                  'lib/src/ui/assets/images/4668855.svg', // Load the working asset
-                  width: 300, // Set desired width
-                  height: 300, // Set desired height
-                ),
-                const SizedBox(height: 16), // Adjusted gap
-                const InputField(
-                  label: 'email',
-                  placeholder: 'johndoe@example.com',
-                  type: TextInputType.emailAddress,
-                ),
-                const InputField(
-                  label: 'password',
-                  placeholder: 'johndoe123**',
-                  isPassword: true,
-                ),
-                const LoginButton(),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ForgotPassword()), // Navigate to ForgotPassword
-                    );
-                  },
-                  child: const Text(
-                    'Forgot Password?',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                    ),
+        child: SingleChildScrollView( // Main content is scrollable
+          // Removed Center widget as SingleChildScrollView handles layout
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start, // Align items to the start, allowing scroll from top
+            crossAxisAlignment: CrossAxisAlignment.center, // Center horizontally within the available width
+            children: [
+              const SizedBox(height: 60), // Add some space at the top to account for AppBar
+              ToggleButton(
+                isAdmin: isAdmin,
+                onToggle: (value) {
+                  setState(() {
+                    isAdmin = value; // Update the state on toggle
+                  });
+                },
+              ),
+              const SizedBox(height: 20), // Adjusted spacing
+              SvgPicture.asset(
+                'lib/src/ui/assets/images/4668855.svg', // Load the working asset
+                width: 300, // Set desired width
+                height: 300, // Set desired height
+              ),
+              const SizedBox(height: 16), // Adjusted gap
+              const InputField(
+                label: 'email',
+                placeholder: 'johndoe@example.com',
+                type: TextInputType.emailAddress,
+              ),
+              const InputField(
+                label: 'password',
+                placeholder: 'johndoe123**',
+                isPassword: true,
+              ),
+              LoginButton(
+                 onPressed: () {
+                  print('Login button tapped!'); // Added print statement
+                  // Navigate to the DashboardPage
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const DashboardPage()),
+                  );
+                },
+              ), // Pass the navigation logic to the button
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ForgotPassword()), // Navigate to ForgotPassword
+                  );
+                },
+                child: const Text(
+                  'Forgot Password?',
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
                   ),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 20), // Add some space at the bottom
+            ],
           ),
         ),
       ),
@@ -203,7 +221,9 @@ class InputField extends StatelessWidget {
 
 // Login Button Widget
 class LoginButton extends StatelessWidget {
-  const LoginButton({Key? key}) : super(key: key);
+  final VoidCallback? onPressed; // Add onPressed callback
+
+  const LoginButton({Key? key, this.onPressed}) : super(key: key); // Update constructor
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +232,7 @@ class LoginButton extends StatelessWidget {
       child: SizedBox(
         width: 300,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onPressed, // Use the provided onPressed callback
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF2C2C2C),
             padding: const EdgeInsets.symmetric(vertical: 17),
