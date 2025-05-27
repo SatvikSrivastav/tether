@@ -12,6 +12,8 @@ class WelcomescreenWidget extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white, // Set background color to white
       body: Center(
         child: Container(
           width: screenWidth,
@@ -27,7 +29,7 @@ class WelcomescreenWidget extends StatelessWidget {
                 width: screenWidth * 0.7,
                 fit: BoxFit.contain,
               ),
-              SizedBox(height: screenHeight * 0.05),
+              SizedBox(height: screenHeight * 0.01),
               Text(
                 'tether.',
                 style: TextStyle(
@@ -65,7 +67,7 @@ class WelcomescreenWidget extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'Log in',
+                      'Login',
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Poppins',

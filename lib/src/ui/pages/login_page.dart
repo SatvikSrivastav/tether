@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Import the flutter_svg package
+import 'forgot_password.dart'; // Import the ForgotPassword page
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Colors.white, // Set background color to white
       body: Container(
         height: MediaQuery.of(context).size.height, // Set height to full screen
@@ -50,7 +52,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const LoginButton(),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ForgotPassword()), // Navigate to ForgotPassword
+                    );
+                  },
                   child: const Text(
                     'Forgot Password?',
                     style: TextStyle(
